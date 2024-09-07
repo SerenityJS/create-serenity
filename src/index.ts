@@ -2,12 +2,16 @@
 /* eslint-disable sort-keys/sort-keys-fix */
 
 import { Command } from "commander";
-import { sync } from "cross-spawn";
 import color from "chalk";
 import nodePlop from "node-plop";
 import boxen from "boxen";
 
-import { validateProjectName } from "./utils";
+import {
+	conditionalTryCommand,
+	isShellPlatform,
+	runCommand,
+	validateProjectName
+} from "./utils";
 import {
 	NonVersionDependentDependencies,
 	VersionDependentDependencies
@@ -36,33 +40,16 @@ program
 
 		// Create an execution plop action.
 		plop.setActionType("run", (answers, config) => {
-			if (
-				!config?.data ||
-				!("command" in config.data) ||
-				(typeof config.data.command !== "string" &&
-					typeof config.data.command !== "function")
-			) {
-				throw new Error("No command provided");
-			}
-			let executableCommand: string | null;
-			if (typeof config.data.command === "function") {
-				executableCommand = config.data.command(answers);
-			} else {
-				executableCommand = config.data.command;
-			}
+			return runCommand(plop, answers, config);
+		});
 
-			if (!executableCommand) {
-				throw new Error("No command provided");
+		plop.setActionType("tryRun", (answers, config) => {
+			try {
+				return runCommand(plop, answers, config);
+			} catch (reason) {
+				// @ts-expect-error
+				return color.orange(`⚠️ ${String(config.data?.error || reason)}`);
 			}
-
-			const command = plop.renderString(executableCommand, answers);
-			const result = sync(command, { stdio: "inherit" });
-
-			if (result.error) {
-				throw result.error;
-			}
-
-			return command;
 		});
 
 		const generator = plop.setGenerator("create-serenity", {
@@ -124,6 +111,12 @@ program
 						command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`
 					}
 				},
+				// If its a shell platform we will chmod the start.sh file so it can be executed
+				...conditionalTryCommand(
+					isShellPlatform(),
+					"chmod +x ./start.sh",
+					"Failed to chmod start.sh. You will need to run `chmod +x ./start.sh` manually so the file is executable."
+				),
 				{
 					type: "run",
 					data: {
@@ -139,13 +132,26 @@ program
 				{
 					type: "run",
 					data: {
-						command: "git commit -m 'Initial commit'"
+						command: 'git commit -m "Initial commit 💜"'
 					}
 				}
 			]
 		});
 		const answers = await generator.runPrompts();
 		await generator.runActions(answers);
+
+		console.log("");
+		console.log(
+			boxen(
+				`🎉 Successfully created ${color.hex("#9469ff")(answers.name)}! Happy coding 💜`,
+				{
+					padding: 1,
+					borderColor: "gray",
+					borderStyle: "round"
+				}
+			)
+		);
+		console.log("");
 	});
 
 program.parse(process.argv);
