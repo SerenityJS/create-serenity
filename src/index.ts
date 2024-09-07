@@ -8,6 +8,10 @@ import nodePlop from "node-plop";
 import boxen from "boxen";
 
 import { validateProjectName } from "./utils";
+import {
+	NonVersionDependentDependencies,
+	VersionDependentDependencies
+} from "./deps";
 
 // Initialize the commander program
 const program = new Command();
@@ -35,11 +39,23 @@ program
 			if (
 				!config?.data ||
 				!("command" in config.data) ||
-				typeof config.data.command !== "string"
+				(typeof config.data.command !== "string" &&
+					typeof config.data.command !== "function")
 			) {
 				throw new Error("No command provided");
 			}
-			const command = plop.renderString(config.data.command, answers);
+			let executableCommand: string | null;
+			if (typeof config.data.command === "function") {
+				executableCommand = config.data.command(answers);
+			} else {
+				executableCommand = config.data.command;
+			}
+
+			if (!executableCommand) {
+				throw new Error("No command provided");
+			}
+
+			const command = plop.renderString(executableCommand, answers);
 			const result = sync(command, { stdio: "inherit" });
 
 			if (result.error) {
@@ -95,12 +111,36 @@ program
 				{
 					type: "addMany",
 					destination: "./{{ dashCase name }}",
-					base: "./templates-{{ type }}",
-					templateFiles: "./templates-{{ type }}/**/*",
+					base: "./template-{{ type }}",
+					templateFiles: "./template-{{ type }}/**/*",
 					globOptions: {
 						dot: true
 					},
 					skipIfExists: true
+				},
+				{
+					type: "run",
+					data: {
+						command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`
+					}
+				},
+				{
+					type: "run",
+					data: {
+						command: "git init ."
+					}
+				},
+				{
+					type: "run",
+					data: {
+						command: "git add ."
+					}
+				},
+				{
+					type: "run",
+					data: {
+						command: "git commit -m 'Initial commit'"
+					}
 				}
 			]
 		});
