@@ -46,7 +46,7 @@ export function runCommand(plop: NodePlopAPI, answers: any, config: any) {
 				plop.renderString("{{ dashCase name }}", answers)
 			)
 		: process.cwd();
-	const result = sync(command, { cwd, stdio: "inherit" });
+	const result = sync(command, { cwd, shell: true, stdio: "inherit" });
 
 	if (result.error) {
 		throw result.error;
