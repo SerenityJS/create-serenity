@@ -1,6 +1,6 @@
 {
   "name": "create-serenity",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "nobu-sh",
   "license": "MIT",
   "description": "Create a Minecraft Bedrock server software project with TypeScript.",

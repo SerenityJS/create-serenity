@@ -97,10 +97,10 @@ program
 					name: "type",
 					message: "What project format would you like to scaffold?",
 					choices: [
-						{ name: color.hex("#e8d44d")("Javascript"), value: "javascript" },
-						{ name: color.hex("#2f74c0")("Typescript"), value: "typescript" },
+						{ name: color.hex("#e8d44d")("JavaScript"), value: "javascript" },
+						{ name: color.hex("#2f74c0")("TypeScript"), value: "typescript" },
 						{
-							name: `${color.hex("#2f74c0")("Typescript")} ${color.gray("+")} ${color.hex("#7c7cea")("ESLint")}`,
+							name: `${color.hex("#2f74c0")("TypeScript")} ${color.gray("+")} ${color.hex("#7c7cea")("ESLint")}`,
 							value: "typescript-eslint"
 						}
 					]

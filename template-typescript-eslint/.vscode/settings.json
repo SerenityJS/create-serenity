@@ -3,7 +3,7 @@
   "mc-color.markerType": "foreground",
   "mc-color.languages": ["*"],
   "mc-color.newLineDelimiter": false,
-  "mc-color.delimiters": ["`", "\"", "'"],
+  "mc-color.delimiters": ["`", "\""],
   "mc-color.prefixes": ["§"],
   "mc-color.mode": "bedrock",
   "mc-color.replicateJavaBug": false,
