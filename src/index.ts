@@ -181,6 +181,19 @@ program
 			)
 		);
 		console.log("");
+		console.log(color.hex("#9469ff")("🚀 Quick Start"));
+		console.log("");
+		console.log(color.grey(`cd ${answers.name}`));
+		console.log(color.grey(`${answers.packageManager} dev`));
+		console.log("");
+		console.log(color.hex("#9469ff")("📚 Learn More"));
+		console.log("");
+		console.log(color.grey("Check out the SerenityJS documentation at:"));
+		console.log(color.grey("https://www.serenityjs.net/"));
+		console.log("");
+		console.log(color.grey("Join the SerenityJS Discord server at:"));
+		console.log(color.grey("https://discord.gg/jUcC3q59zg"));
+		console.log("");
 	});
 
 program.parse(process.argv);
