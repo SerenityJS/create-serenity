@@ -1,6 +1,6 @@
 {
   "name": "create-serenity",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "nobu-sh",
   "license": "MIT",
   "description": "Create a Minecraft Bedrock server software project with TypeScript.",
@@ -13,7 +13,9 @@
   ],
   "files": [
     "dist",
-    "template-*"
+    "template-javascript",
+    "template-typescript",
+    "template-typescript-eslint"
   ],
   "type": "module",
   "main": "./dist/index.js",
