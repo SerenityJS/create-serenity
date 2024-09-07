@@ -1,0 +1,45 @@
+{
+  "name": "create-serenity",
+  "version": "1.0.0",
+  "author": "nobu-sh",
+  "license": "MIT",
+  "description": "Create a Minecraft Bedrock server software project with TypeScript.",
+  "keywords": [
+    "minecraft",
+    "bedrock",
+    "server",
+    "software",
+    "typescript"
+  ],
+  "files": [
+    "dist",
+    "template-*"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "create-serenity": "./dist/index.js",
+    "csa": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "lint": "eslint . --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ariesclark/eslint-config": "^2.0.1",
+    "@types/cross-spawn": "^6.0.6",
+    "@types/node": "^22.5.4",
+    "eslint": "^9.10.0",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "cross-spawn": "^7.0.3",
+    "node-plop": "^0.32.0"
+  }
+}
