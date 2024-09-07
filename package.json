@@ -32,6 +32,7 @@
   "devDependencies": {
     "@ariesclark/eslint-config": "^2.0.1",
     "@types/cross-spawn": "^6.0.6",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.5.4",
     "eslint": "^9.10.0",
     "tsup": "^8.2.4",
@@ -42,6 +43,7 @@
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "cross-spawn": "^7.0.3",
+    "fs-extra": "^11.2.0",
     "node-plop": "^0.32.0"
   }
 }

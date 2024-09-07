@@ -8,6 +8,8 @@ import boxen from "boxen";
 
 import {
 	conditionalTryCommand,
+	copyTemplate,
+	getErrorMessage,
 	isShellPlatform,
 	runCommand,
 	validateProjectName
@@ -40,15 +42,33 @@ program
 
 		// Create an execution plop action.
 		plop.setActionType("run", (answers, config) => {
-			return runCommand(plop, answers, config);
+			try {
+				return runCommand(plop, answers, config);
+			} catch (reason) {
+				console.log(color.red(getErrorMessage(reason)));
+				throw reason;
+			}
 		});
 
 		plop.setActionType("tryRun", (answers, config) => {
 			try {
-				return runCommand(plop, answers, config);
+				const command = runCommand(plop, answers, config);
+				console.log(color.grey(`🚀 ${command}`));
+				return command;
 			} catch (reason) {
-				// @ts-expect-error
-				return color.orange(`⚠️ ${String(config.data?.error || reason)}`);
+				return color.hex("#fca103")(
+					// @ts-expect-error
+					`⚠️ ${String(config.data?.error || getErrorMessage(reason))}`
+				);
+			}
+		});
+
+		plop.setActionType("copyTemplate", (answers, config) => {
+			try {
+				return copyTemplate(plop, answers, config);
+			} catch (reason) {
+				console.log(color.red(getErrorMessage(reason)));
+				throw reason;
 			}
 		});
 
@@ -96,14 +116,11 @@ program
 			],
 			actions: [
 				{
-					type: "addMany",
-					destination: "./{{ dashCase name }}",
-					base: "./template-{{ type }}",
-					templateFiles: "./template-{{ type }}/**/*",
-					globOptions: {
-						dot: true
-					},
-					skipIfExists: true
+					type: "copyTemplate",
+					data: {
+						template: "{{ type }}",
+						destination: "{{ dashCase name }}"
+					}
 				},
 				{
 					type: "run",
@@ -138,7 +155,17 @@ program
 			]
 		});
 		const answers = await generator.runPrompts();
-		await generator.runActions(answers);
+		const results = await generator.runActions(answers);
+
+		if (results.failures.length > 0) {
+			console.log("");
+			console.log(
+				color.red.bold("🚨 Failed to create project. See error above!")
+			);
+			console.log("");
+
+			return;
+		}
 
 		console.log("");
 		console.log(
