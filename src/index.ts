@@ -43,7 +43,9 @@ program
 		// Create an execution plop action.
 		plop.setActionType("run", (answers, config) => {
 			try {
-				return runCommand(plop, answers, config);
+				const command = runCommand(plop, answers, config);
+				console.log(color.grey(`🚀 ${command}`));
+				return command;
 			} catch (reason) {
 				console.log(color.red(getErrorMessage(reason)));
 				throw reason;

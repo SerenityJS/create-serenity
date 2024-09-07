@@ -1,0 +1,16 @@
+{
+  "mc-color.enabled": true,
+  "mc-color.markerType": "foreground",
+  "mc-color.languages": ["*"],
+  "mc-color.newLineDelimiter": false,
+  "mc-color.delimiters": ["`", "\"", "'"],
+  "mc-color.prefixes": ["§"],
+  "mc-color.mode": "bedrock",
+  "mc-color.replicateJavaBug": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "eslint.format.enable": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n"
+}
