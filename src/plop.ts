@@ -169,7 +169,8 @@ export async function run(
 		});
 
 		child.stderr.on("data", (data) => {
-			operation.write(String(chalk.red(data)));
+			const isWarning = /\b(warn|warning)\b[:]?/i.test(data);
+			operation.write(String(chalk[isWarning ? "yellow" : "red"](data)));
 		});
 
 		child.on("close", (code) => {

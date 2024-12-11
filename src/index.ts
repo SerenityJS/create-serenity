@@ -96,6 +96,7 @@ program
 				},
 				{
 					type: "run",
+					name: "Installing Dependencies",
 					command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`
 				},
 				{
