@@ -408,6 +408,11 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@lukeed/ms@^2.0.1":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@lukeed/ms/-/ms-2.0.2.tgz#07f09e59a74c52f4d88c6db5c1054e819538e2a8"
+  integrity sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==
+
 "@next/eslint-plugin-next@14.2.8", "@next/eslint-plugin-next@^14.2.5":
   version "14.2.8"
   resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-14.2.8.tgz#eccae5b08b323b2be24cced6188394e8716890ed"
@@ -540,6 +545,137 @@
   version "1.10.4"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.4.tgz#427d5549943a9c6fce808e39ea64dbe60d4047f1"
   integrity sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==
+
+"@serenityjs/binarystream-darwin-arm64@2.6.6":
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/@serenityjs/binarystream-darwin-arm64/-/binarystream-darwin-arm64-2.6.6.tgz#692cdedc6a41307d3272779e0c8a28b07f83ac49"
+  integrity sha512-NDzZoHcksmJN12XYekt2xdAAEPHeCgSHjnCkk8Ve8rp1+MDPsBIspWuFMpfDBwZ0q4fdRphll3BwxWfW0O6ghA==
+
+"@serenityjs/binarystream-darwin-x64@2.6.6":
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/@serenityjs/binarystream-darwin-x64/-/binarystream-darwin-x64-2.6.6.tgz#ac67425989d86e01ad9f17144f0a15642ec0cfa1"
+  integrity sha512-Np6y63kwcaCsCpI/LixDV/Vz1tAljRQHVNa2VKVnrF5vRwrOIeTVdAqfhB7hYWpaAyvoMv5pp0q3woAikCoM4w==
+
+"@serenityjs/binarystream-linux-x64-gnu@2.6.6":
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/@serenityjs/binarystream-linux-x64-gnu/-/binarystream-linux-x64-gnu-2.6.6.tgz#54b221512b6efe91c9d8aab9cb9a6b773b0354fc"
+  integrity sha512-db6mQfv6r84eRvpu2EpL4PCRnQfwr64ifd+doU7pA2h96fafY197mZYBuQoOOWVmYurKfFQtPRIiA6Ch6SXLMg==
+
+"@serenityjs/binarystream-win32-x64-msvc@2.6.6":
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/@serenityjs/binarystream-win32-x64-msvc/-/binarystream-win32-x64-msvc-2.6.6.tgz#a31944c4694cdae82b84b0dafee50cf4539f2dbc"
+  integrity sha512-EiqFys/reDqJOFbsVOq5Lblialaib8w9UW5HkO32gQT/4+7SFR1aFXyh3JEQAlsoqPOJlbbREXxvO0f18sqk1Q==
+
+"@serenityjs/binarystream@2.6.6", "@serenityjs/binarystream@^2.6.6":
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/@serenityjs/binarystream/-/binarystream-2.6.6.tgz#20a426afb02060677a18881db6415785db9874d3"
+  integrity sha512-QMrA1So2DRNvMt968p1/jnFcqVeQ6kvACAKdFNRnstwkoYQxAnj2sD7Z+5n5rE+XPrZZPttVbvSfsT6WdcQj3Q==
+  optionalDependencies:
+    "@serenityjs/binarystream-darwin-arm64" "2.6.6"
+    "@serenityjs/binarystream-darwin-x64" "2.6.6"
+    "@serenityjs/binarystream-linux-x64-gnu" "2.6.6"
+    "@serenityjs/binarystream-win32-x64-msvc" "2.6.6"
+
+"@serenityjs/core@0.6.4-beta-20241210051348", "@serenityjs/core@^0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/core/-/core-0.6.4-beta-20241210051348.tgz#30689505029b6eb4f64a7696a71edade034a5808"
+  integrity sha512-0GS3mHdM9zCh+6L0zA9WmNqVWqAvIqPdbvIXGHGLgQhQsy4rduZkdnh7ftSk3hj9G1grmFtYrYVo8FQFuXo1zg==
+  dependencies:
+    "@serenityjs/binarystream" "2.6.6"
+    "@serenityjs/data" "0.6.4-beta-20241210051348"
+    "@serenityjs/emitter" "0.6.4-beta-20241210051348"
+    "@serenityjs/leveldb" "1.0.1"
+    "@serenityjs/logger" "0.6.4-beta-20241210051348"
+    "@serenityjs/nbt" "0.6.4-beta-20241210051348"
+    "@serenityjs/protocol" "0.6.4-beta-20241210051348"
+    "@serenityjs/raknet" "0.6.4-beta-20241210051348"
+    fast-jwt "4.0.5"
+    simplex-noise "4.0.3"
+
+"@serenityjs/data@0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/data/-/data-0.6.4-beta-20241210051348.tgz#8c214eea6e530677ec0e28f941bc42ede989e833"
+  integrity sha512-+wNzC9VDoL2AiMzcpLvkdskMR7MfOZBjzJ2WO3HJAAHIt1nEF59lEQLPqF8hxu+ZLTpiHLQWIdH3yPbvlPSr9g==
+
+"@serenityjs/emitter@0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/emitter/-/emitter-0.6.4-beta-20241210051348.tgz#ab34185fdec037e1a4b398d4e003e6278b20165e"
+  integrity sha512-4w+8rfDG384Bcgmf/M7PPBiWm8ttsBY5O+9FUk70mDqH0PuJ1Jrmg5uUGZOVFaqldbCoMdEfIgGK83i1YfiJRw==
+
+"@serenityjs/leveldb-darwin-arm64@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@serenityjs/leveldb-darwin-arm64/-/leveldb-darwin-arm64-1.0.1.tgz#7b5dfe986881873d9ade0b5cf2008ec7e9a2b81f"
+  integrity sha512-akpyI2Q6cHZ09WbXRRYn4S7JONpsDysmYBRRi9A2XdpZ/qsxqP8ephlVaKIpTi1jYxL1RNl1bpJRiBRCYslEUw==
+
+"@serenityjs/leveldb-darwin-x64@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@serenityjs/leveldb-darwin-x64/-/leveldb-darwin-x64-1.0.1.tgz#c679b4e3ad52f8b9fc5f5181430a12e0c1a99478"
+  integrity sha512-qimImYsFJPcP0ggx58skhdNodX+maukroXrgybye28Sq++cFqYSRxsrQQtVX0RArOAi7v4vbBHa+WIQlzUVDjg==
+
+"@serenityjs/leveldb-linux-x64-gnu@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@serenityjs/leveldb-linux-x64-gnu/-/leveldb-linux-x64-gnu-1.0.1.tgz#f4a63008160aef126e3799b70f5728091312dceb"
+  integrity sha512-P7S2PffmSDddTM9PHf00lWZvTKm6wY+/9XYGhHHaYkxClXCzmgchemGCHoFfBfUgeRbg286dbEln5oeKVzuciw==
+
+"@serenityjs/leveldb-win32-x64-msvc@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@serenityjs/leveldb-win32-x64-msvc/-/leveldb-win32-x64-msvc-1.0.1.tgz#70d07ea57432208e9c945040cccc552cb0fc99ea"
+  integrity sha512-7+YOTeO7siwudV3zSsN8+iF8moelewba15i15f8jn4dumc44WCpJ/tT49LdHr1zm7X/88kfVqWCDBjBO6oKO8w==
+
+"@serenityjs/leveldb@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@serenityjs/leveldb/-/leveldb-1.0.1.tgz#a2a4a21edda61771036da58f3adfb1866143a322"
+  integrity sha512-Z+jNK0av/GyoShn194mUqL1OYlavC87ehRPvluUDM083S70nn6L1SKkJAFKS3sRlP/ZdxdsbxwIkGx32jejXiw==
+  optionalDependencies:
+    "@serenityjs/leveldb-darwin-arm64" "1.0.1"
+    "@serenityjs/leveldb-darwin-x64" "1.0.1"
+    "@serenityjs/leveldb-linux-x64-gnu" "1.0.1"
+    "@serenityjs/leveldb-win32-x64-msvc" "1.0.1"
+
+"@serenityjs/logger@0.6.4-beta-20241210051348", "@serenityjs/logger@^0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/logger/-/logger-0.6.4-beta-20241210051348.tgz#5a3899f107b9a991007c4eb1f886661fdfd9e776"
+  integrity sha512-XYGKqX7sIqVH6/NWDhexRM7POCfDwhw8kLt4hSIhf0qA6/DecH/A8elh3vuVXHGFKujWTYn/W6wscLgjidHOKg==
+  dependencies:
+    colorette "2.0.20"
+    moment "2.30.1"
+
+"@serenityjs/nbt@0.6.4-beta-20241210051348", "@serenityjs/nbt@^0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/nbt/-/nbt-0.6.4-beta-20241210051348.tgz#c583eecb7cb83d1a40770ab87b2366e844dc0878"
+  integrity sha512-zXWZzo9R+kTxoFnyDYTOEqEWuxAG9Oz6l3fSA9SMEJ21vw3CsjGYZwtyePa2fyvmvNjfOHrjABaW43sKxAUh/A==
+  dependencies:
+    "@serenityjs/binarystream" "2.6.6"
+
+"@serenityjs/plugins@^0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/plugins/-/plugins-0.6.4-beta-20241210051348.tgz#e86649f6503e12be8699c7c33e134300fc2cd87e"
+  integrity sha512-FkSyU5VRLjAZaPawvik8C38LUvMUcrGooYw7mylpDFP9dBGQDFq1VzGvFB6ZhCLQa9/yRVxixckCvQ1LrvHLqA==
+  dependencies:
+    "@serenityjs/binarystream" "^2.6.6"
+    "@serenityjs/core" "0.6.4-beta-20241210051348"
+    "@serenityjs/logger" "0.6.4-beta-20241210051348"
+    "@serenityjs/protocol" "0.6.4-beta-20241210051348"
+
+"@serenityjs/protocol@0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/protocol/-/protocol-0.6.4-beta-20241210051348.tgz#66de4ade9fac72be885333b993fb8552a52ff97d"
+  integrity sha512-pJ3xgtgEHIPBAb9L0q8v/YsZLmFTd2zTJFjth6bOY5ODviWqBBazDx2lcVMesRMu3UBSmV9XNStGhgnifGr50A==
+  dependencies:
+    "@serenityjs/binarystream" "2.6.6"
+    "@serenityjs/nbt" "0.6.4-beta-20241210051348"
+    "@serenityjs/raknet" "0.6.4-beta-20241210051348"
+
+"@serenityjs/raknet@0.6.4-beta-20241210051348", "@serenityjs/raknet@^0.6.4-beta-20241210051348":
+  version "0.6.4-beta-20241210051348"
+  resolved "https://registry.yarnpkg.com/@serenityjs/raknet/-/raknet-0.6.4-beta-20241210051348.tgz#e3706b89316a0fa4396f5608c4b773def7029d25"
+  integrity sha512-dIp8yOL59q9zKLpcI8wjM6PROYrhk6MyBJWnM40d7qzkw8sKECKamtBm9X+3/uGzEtEA648cRYHzebJtY+cbPw==
+  dependencies:
+    "@serenityjs/binarystream" "2.6.6"
+    "@serenityjs/emitter" "0.6.4-beta-20241210051348"
+    "@serenityjs/logger" "0.6.4-beta-20241210051348"
+    "@serenityjs/nbt" "0.6.4-beta-20241210051348"
+    reflect-metadata "0.2.2"
 
 "@types/cross-spawn@^6.0.6":
   version "6.0.6"
@@ -949,6 +1085,16 @@ arraybuffer.prototype.slice@^1.0.3:
     is-array-buffer "^3.0.4"
     is-shared-array-buffer "^1.0.2"
 
+asn1.js@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/asn1.js/-/asn1.js-5.4.1.tgz#11a980b84ebb91781ce35b0fdc2ee294e3783f07"
+  integrity sha512-+I//4cYPccV8LdmBLiX8CYvf9Sp3vQsrqu2QNXRcrbiWvcx/UdlFiqUJJzxRQxgsZmvhXhn4cSKeSmoFjVdupA==
+  dependencies:
+    bn.js "^4.0.0"
+    inherits "^2.0.1"
+    minimalistic-assert "^1.0.0"
+    safer-buffer "^2.1.0"
+
 ast-types-flow@^0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/ast-types-flow/-/ast-types-flow-0.0.8.tgz#0a85e1c92695769ac13a428bb653e7538bea27d6"
@@ -980,6 +1126,11 @@ binary-extensions@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.3.0.tgz#f6e14a97858d327252200242d4ccfe522c445522"
   integrity sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==
+
+bn.js@^4.0.0:
+  version "4.12.1"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.1.tgz#215741fe3c9dba2d7e12c001d0cfdbae43975ba7"
+  integrity sha512-k8TVBiPkPJT9uHLdOKfFpqcfprwBFOAAXXozRubr7R7PfIuKvQlzcI4M0pALeqXN09vdaMbUdUj+pass+uULAg==
 
 boxen@^8.0.1:
   version "8.0.1"
@@ -1158,6 +1309,11 @@ color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
+colorette@2.0.20:
+  version "2.0.20"
+  resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.20.tgz#9eb793e6833067f7235902fcd3b09917a000a95a"
+  integrity sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==
+
 commander@^12.1.0:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-12.1.0.tgz#01423b36f501259fdaac4d0e4d60c96c991585d3"
@@ -1305,6 +1461,13 @@ eastasianwidth@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz#696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
+
+ecdsa-sig-formatter@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz#ae0f0fa2d85045ef14a817daa3ce9acd0489e5bf"
+  integrity sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==
+  dependencies:
+    safe-buffer "^5.0.1"
 
 electron-to-chromium@^1.5.4:
   version "1.5.18"
@@ -1851,6 +2014,16 @@ fast-json-stable-stringify@^2.0.0:
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz#874bf69c6f404c2b5d99c481341399fd55892633"
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
+fast-jwt@4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/fast-jwt/-/fast-jwt-4.0.5.tgz#87e4e3d694d396f858ca32c875a2249f26eb8116"
+  integrity sha512-QnpNdn0955GT7SlT8iMgYfhTsityUWysrQjM+Q7bGFijLp6+TNWzlbSMPvgalbrQGRg4ZaHZgMcns5fYOm5avg==
+  dependencies:
+    "@lukeed/ms" "^2.0.1"
+    asn1.js "^5.4.1"
+    ecdsa-sig-formatter "^1.0.11"
+    mnemonist "^0.39.5"
+
 fast-levenshtein@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
@@ -2173,6 +2346,11 @@ indent-string@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-4.0.0.tgz#624f8f4497d619b2d9768531d58f4122854d7251"
   integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
+
+inherits@^2.0.1:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
+  integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
 internal-slot@^1.0.4, internal-slot@^1.0.7:
   version "1.0.7"
@@ -2615,6 +2793,11 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
+minimalistic-assert@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
+  integrity sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==
+
 minimatch@9.0.3:
   version "9.0.3"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.3.tgz#a6e00c3de44c3a542bfaae70abfc22420a6da825"
@@ -2645,6 +2828,18 @@ minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.1.2.tgz#93a9626ce5e5e66bd4db86849e7515e92340a707"
   integrity sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==
+
+mnemonist@^0.39.5:
+  version "0.39.8"
+  resolved "https://registry.yarnpkg.com/mnemonist/-/mnemonist-0.39.8.tgz#9078cd8386081afd986cca34b52b5d84ea7a4d38"
+  integrity sha512-vyWo2K3fjrUw8YeeZ1zF0fy6Mu59RHokURlld8ymdUPjMlD9EC9ov1/YPqTgqRvUN9nTr3Gqfz29LYAmu0PHPQ==
+  dependencies:
+    obliterator "^2.0.1"
+
+moment@2.30.1:
+  version "2.30.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
+  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
 
 ms@^2.1.1, ms@^2.1.3:
   version "2.1.3"
@@ -2776,6 +2971,11 @@ object.values@^1.1.6, object.values@^1.2.0:
     call-bind "^1.0.7"
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
+
+obliterator@^2.0.1:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/obliterator/-/obliterator-2.0.4.tgz#fa650e019b2d075d745e44f1effeb13a2adbe816"
+  integrity sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==
 
 onetime@^5.1.2:
   version "5.1.2"
@@ -2992,6 +3192,11 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
+reflect-metadata@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.2.2.tgz#400c845b6cba87a21f2c65c4aeb158f4fa4d9c5b"
+  integrity sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==
+
 reflect.getprototypeof@^1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/reflect.getprototypeof/-/reflect.getprototypeof-1.0.6.tgz#3ab04c32a8390b770712b7a8633972702d278859"
@@ -3112,6 +3317,11 @@ safe-array-concat@^1.1.2:
     has-symbols "^1.0.3"
     isarray "^2.0.5"
 
+safe-buffer@^5.0.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
+  integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
+
 safe-regex-test@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/safe-regex-test/-/safe-regex-test-1.0.3.tgz#a5b4c0f06e0ab50ea2c395c14d8371232924c377"
@@ -3121,7 +3331,7 @@ safe-regex-test@^1.0.3:
     es-errors "^1.3.0"
     is-regex "^1.1.4"
 
-"safer-buffer@>= 2.1.2 < 3":
+"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
@@ -3194,6 +3404,11 @@ signal-exit@^4.0.1, signal-exit@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
+
+simplex-noise@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/simplex-noise/-/simplex-noise-4.0.3.tgz#e60b840ecfb9ac972870c8c7979bd867a5b4032f"
+  integrity sha512-qSE2I4AngLQG7BXqoZj51jokT4WUXe8mOBrvfOXpci8+6Yu44+/dD5zqDpOx3Ux792eamTd2lLcI8jqFntk/lg==
 
 slash@^3.0.0:
   version "3.0.0"

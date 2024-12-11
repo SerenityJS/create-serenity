@@ -149,8 +149,7 @@ export function createConsoleOperation(
 			status = "error";
 			clearInterval(loaderInterval);
 			render();
-			process.stdout.write("\n");
-			if (data) console.error(chalk.red(data));
+			if (data) printWrappedLine(chalk.red(data));
 			closed = true;
 		},
 		setMessage(message: string) {
@@ -162,8 +161,7 @@ export function createConsoleOperation(
 			status = "success";
 			clearInterval(loaderInterval);
 			render();
-			process.stdout.write("\n");
-			if (data) console.log(chalk.green(data));
+			if (data) printWrappedLine(chalk.green(data));
 			closed = true;
 		},
 		write(data: string) {

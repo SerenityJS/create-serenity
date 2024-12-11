@@ -79,12 +79,19 @@ export async function copy(config: PlopCopyAction, api: PlopActionAPI) {
 		throw error;
 	}
 
-	if ((await fs.exists(destinationDir)) && !api.answers.overwrite) {
-		const error = new Error(
-			`Destination directory already exists: ${destinationDir}`
-		);
-		operation.error(error);
-		throw error;
+	if (await fs.exists(destinationDir)) {
+		if (api.answers.overwrite) {
+			operation.write(
+				`📂 deleting '${path.relative(destinationCwd, destinationDir)}'`
+			);
+			await fs.remove(destinationDir);
+		} else {
+			const error = new Error(
+				`Destination directory already exists: ${destinationDir}`
+			);
+			operation.error(error);
+			throw error;
+		}
 	}
 
 	operation.write(`📂 creating '${path.dirname(destinationDir)}'`);
@@ -100,31 +107,31 @@ export async function copy(config: PlopCopyAction, api: PlopActionAPI) {
 			);
 
 			if (item.isDirectory()) {
-				await fs.ensureDir(destPath);
 				operation.write(
-					`📂 created '${path.relative(destinationCwd, destPath)}'`
+					`📂 creating '${path.relative(destinationCwd, destPath)}'`
 				);
+				await fs.ensureDir(destPath);
 				await processDirectory(sourcePath, destPath);
 			} else {
 				if (item.name.endsWith(".hbs")) {
 					const template = await fs.readFile(sourcePath, "utf8");
 					const rendered = api.renderString(template);
+					operation.write(
+						`📄 creating '${path.relative(destinationCwd, destPath)}'`
+					);
 					await fs.writeFile(destPath, rendered);
-					operation.write(
-						`📄 created '${path.relative(destinationCwd, destPath)}'`
-					);
 				} else {
-					await fs.copy(sourcePath, destPath);
 					operation.write(
-						`📄 copied '${path.relative(destinationCwd, destPath)}'`
+						`📄 copying '${path.relative(destinationCwd, destPath)}'`
 					);
+					await fs.copy(sourcePath, destPath);
 				}
 			}
 		});
 
 		try {
 			await Promise.all(promises);
-			operation.success();
+			operation.success("Files copied successfully!");
 		} catch (reason) {
 			operation.error(reason);
 			throw reason;
