@@ -4,24 +4,75 @@
 import fs from "fs";
 import path from "path";
 
-import { Command } from "commander";
+import { Command, InvalidArgumentError } from "commander";
 import color from "chalk";
 import boxen from "boxen";
 
 import { plop } from "./plop";
-import { isShellPlatform, validateProjectName } from "./utils";
 import {
 	NonVersionDependentDependencies,
 	VersionDependentDependencies
 } from "./deps";
+import { isShellPlatform, validateProjectName } from "./utils";
 
 const program = new Command();
 
 program
 	.name("create-serenity")
 	.description("Create a new SerenityJS Minecraft Bedrock server.")
-	.version("1.0.0")
-	.action(async () => {
+	.option("-n, --name [string]", "Name of the project.", (input) => {
+		const result = validateProjectName(input);
+		if (result === true) {
+			return input;
+		}
+
+		throw new InvalidArgumentError(String(result));
+	})
+	.option(
+		"-v, --version [string]",
+		"Version of SerenityJS to use (latest or beta).",
+		(input) => {
+			if (!["latest", "beta"].includes(input)) {
+				throw new InvalidArgumentError(
+					"Version must be either 'latest' or 'beta'!"
+				);
+			}
+
+			return input;
+		}
+	)
+	.option(
+		"-t, --type [string]",
+		"Type of project to scaffold (javascript, typescript, typescript-eslint).",
+		(input) => {
+			if (!["javascript", "typescript", "typescript-eslint"].includes(input)) {
+				throw new InvalidArgumentError(
+					"Type must be either 'javascript', 'typescript', or 'typescript-eslint'!"
+				);
+			}
+
+			return input;
+		}
+	)
+	.option(
+		"-p, --package-manager [string]",
+		"Package manager to use (npm, yarn, pnpm).",
+		(input) => {
+			if (!["npm", "yarn", "pnpm"].includes(input)) {
+				throw new InvalidArgumentError(
+					"Package manager must be either 'npm', 'yarn', or 'pnpm'!"
+				);
+			}
+
+			return input;
+		}
+	)
+	.option("-o, --overwrite", "Overwrite the project directory if it exists.")
+	.configureOutput({
+		writeErr: (str) =>
+			console.error(color.red("✗", str.replace(/^error:\s+/, "")))
+	})
+	.action(async (answers) => {
 		console.log(
 			boxen(
 				`Build your perfect Minecraft Bedrock server with ${color.hex("#9469ff")("SerenityJS!")}`,
@@ -34,6 +85,7 @@ program
 		);
 
 		const result = await plop({
+			answers,
 			questions: [
 				{
 					type: "input",
@@ -97,7 +149,7 @@ program
 				{
 					type: "run",
 					name: "Installing Dependencies",
-					command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`,
+					command: `{{packageManager}} add -W ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`,
 					cwd: "{{name}}"
 				},
 				{
