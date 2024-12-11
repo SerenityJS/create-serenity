@@ -2,6 +2,9 @@
   "name": "{{name}}",
   "version": "1.0.0",
   "main": "dist/index.js",
+    "workspaces": [
+    "plugins/*"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
