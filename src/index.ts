@@ -1,25 +1,16 @@
 #!/usr/bin/env node
 /* eslint-disable sort-keys/sort-keys-fix */
 
+import fs from "fs";
+import path from "path";
+
 import { Command } from "commander";
 import color from "chalk";
-import nodePlop from "node-plop";
 import boxen from "boxen";
 
-import {
-	conditionalTryCommand,
-	copyTemplate,
-	getErrorMessage,
-	isShellPlatform,
-	runCommand,
-	validateProjectName
-} from "./utils";
-import {
-	NonVersionDependentDependencies,
-	VersionDependentDependencies
-} from "./deps";
+import { plop } from "./plop";
+import { validateProjectName } from "./utils";
 
-// Initialize the commander program
 const program = new Command();
 
 program
@@ -31,52 +22,15 @@ program
 			boxen(
 				`Build your perfect Minecraft Bedrock server with ${color.hex("#9469ff")("SerenityJS!")}`,
 				{
-					padding: 1,
 					borderColor: "gray",
-					borderStyle: "round"
+					borderStyle: "round",
+					padding: 1
 				}
 			)
 		);
 
-		const plop = await nodePlop();
-
-		// Create an execution plop action.
-		plop.setActionType("run", (answers, config) => {
-			try {
-				const command = runCommand(plop, answers, config);
-				console.log(color.grey(`🚀 ${command}`));
-				return command;
-			} catch (reason) {
-				console.log(color.red(getErrorMessage(reason)));
-				throw reason;
-			}
-		});
-
-		plop.setActionType("tryRun", (answers, config) => {
-			try {
-				const command = runCommand(plop, answers, config);
-				console.log(color.grey(`🚀 ${command}`));
-				return command;
-			} catch (reason) {
-				return color.hex("#fca103")(
-					// @ts-expect-error
-					`⚠️ ${String(config.data?.error || getErrorMessage(reason))}`
-				);
-			}
-		});
-
-		plop.setActionType("copyTemplate", (answers, config) => {
-			try {
-				return copyTemplate(plop, answers, config);
-			} catch (reason) {
-				console.log(color.red(getErrorMessage(reason)));
-				throw reason;
-			}
-		});
-
-		const generator = plop.setGenerator("create-serenity", {
-			description: "Create a new SerenityJS Minecraft Bedrock server.",
-			prompts: [
+		const result = await plop({
+			questions: [
 				{
 					type: "input",
 					name: "name",
@@ -84,7 +38,7 @@ program
 					validate: validateProjectName
 				},
 				{
-					type: "list",
+					type: "select",
 					name: "version",
 					message: "What branch of SerenityJS would you like to use?",
 					choices: [
@@ -93,7 +47,7 @@ program
 					]
 				},
 				{
-					type: "list",
+					type: "select",
 					name: "type",
 					message: "What project format would you like to scaffold?",
 					choices: [
@@ -106,7 +60,7 @@ program
 					]
 				},
 				{
-					type: "list",
+					type: "select",
 					name: "packageManager",
 					message: "Which package manager would you like to use?",
 					choices: [
@@ -114,86 +68,185 @@ program
 						{ name: color.hex("#2b8ab5")("yarn"), value: "yarn" },
 						{ name: color.hex("#f2a701")("pnpm"), value: "pnpm" }
 					]
+				},
+				{
+					type: "confirm",
+					name: "overwrite",
+					message:
+						"A directory named '{{name}}' already exists! Would you like to overwrite?",
+					default: false,
+					when: (answers) => {
+						const destinationDir = path.resolve(
+							process.cwd(),
+							String(answers.name)
+						);
+						return fs.existsSync(destinationDir);
+					}
 				}
 			],
 			actions: [
 				{
-					type: "copyTemplate",
-					data: {
-						template: "{{ type }}",
-						destination: "{{ dashCase name }}"
-					}
-				},
-				{
-					type: "run",
-					data: {
-						command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`
-					}
-				},
-				// If its a shell platform we will chmod the start.sh file so it can be executed
-				...conditionalTryCommand(
-					isShellPlatform(),
-					"chmod +x ./start.sh",
-					"Failed to chmod start.sh. You will need to run `chmod +x ./start.sh` manually so the file is executable."
-				),
-				{
-					type: "run",
-					data: {
-						command: "git init ."
-					}
-				},
-				{
-					type: "run",
-					data: {
-						command: "git add ."
-					}
-				},
-				{
-					type: "run",
-					data: {
-						command: 'git commit -m "Initial commit 💜"'
-					}
+					type: "copy",
+					source: "template-{{type}}",
+					destination: "{{dashCase name}}"
 				}
+				// {
+				// 	type: "run",
+				// 	command: "bigblackniggaballshd"
+				// 	// try: true
+				// }
 			]
 		});
-		const answers = await generator.runPrompts();
-		const results = await generator.runActions(answers);
 
-		if (results.failures.length > 0) {
-			console.log("");
-			console.log(
-				color.red.bold("🚨 Failed to create project. See error above!")
-			);
-			console.log("");
-
-			return;
-		}
-
-		console.log("");
-		console.log(
-			boxen(
-				`🎉 Successfully created ${color.hex("#9469ff")(answers.name)}! Happy coding 💜`,
-				{
-					padding: 1,
-					borderColor: "gray",
-					borderStyle: "round"
-				}
-			)
-		);
-		console.log("");
-		console.log(color.hex("#9469ff")("🚀 Quick Start"));
-		console.log("");
-		console.log(color.grey(`cd ${answers.name}`));
-		console.log(color.grey(`${answers.packageManager} dev`));
-		console.log("");
-		console.log(color.hex("#9469ff")("📚 Learn More"));
-		console.log("");
-		console.log(color.grey("Check out the SerenityJS documentation at:"));
-		console.log(color.grey("https://www.serenityjs.net/"));
-		console.log("");
-		console.log(color.grey("Join the SerenityJS Discord server at:"));
-		console.log(color.grey("https://discord.gg/jUcC3q59zg"));
-		console.log("");
+		// const plop = await nodePlop();
+		// // Create an execution plop action.
+		// plop.setActionType("run", (answers, config) => {
+		// 	try {
+		// 		const command = runCommand(plop, answers, config);
+		// 		console.log(color.grey(`🚀 ${command}`));
+		// 		return command;
+		// 	} catch (reason) {
+		// 		console.log(color.red(getErrorMessage(reason)));
+		// 		throw reason;
+		// 	}
+		// });
+		// plop.setActionType("tryRun", (answers, config) => {
+		// 	try {
+		// 		const command = runCommand(plop, answers, config);
+		// 		console.log(color.grey(`🚀 ${command}`));
+		// 		return command;
+		// 	} catch (reason) {
+		// 		return color.hex("#fca103")(
+		// 			// @ts-expect-error
+		// 			`⚠️ ${String(config.data?.error || getErrorMessage(reason))}`
+		// 		);
+		// 	}
+		// });
+		// plop.setActionType("copyTemplate", (answers, config) => {
+		// 	try {
+		// 		return copyTemplate(plop, answers, config);
+		// 	} catch (reason) {
+		// 		console.log(color.red(getErrorMessage(reason)));
+		// 		throw reason;
+		// 	}
+		// });
+		// const generator = plop.setGenerator("create-serenity", {
+		// 	description: "Create a new SerenityJS Minecraft Bedrock server.",
+		// 	prompts: [
+		// 		{
+		// type: "input",
+		// name: "name",
+		// message: "What would you like to name your project?",
+		// 			validate: validateProjectName
+		// 		},
+		// 		{
+		// 			type: "list",
+		// name: "version",
+		// message: "What branch of SerenityJS would you like to use?",
+		// choices: [
+		// 	{ name: color.hex("#a24de8")("Latest"), value: "latest" },
+		// 	{ name: color.hex("#e8954d")("Beta 🚧"), value: "beta" }
+		// ]
+		// 		},
+		// 		{
+		// 			type: "list",
+		// 			name: "type",
+		// message: "What project format would you like to scaffold?",
+		// choices: [
+		// 	{ name: color.hex("#e8d44d")("JavaScript"), value: "javascript" },
+		// 	{ name: color.hex("#2f74c0")("TypeScript"), value: "typescript" },
+		// 	{
+		// 		name: `${color.hex("#2f74c0")("TypeScript")} ${color.gray("+")} ${color.hex("#7c7cea")("ESLint")}`,
+		// 		value: "typescript-eslint"
+		// 	}
+		// ]
+		// 		},
+		// 		{
+		// 			type: "list",
+		// 			name: "packageManager",
+		// 			message: "Which package manager would you like to use?",
+		// 			choices: [
+		// 				{ name: color.hex("#dc2d35")("npm"), value: "npm" },
+		// 				{ name: color.hex("#2b8ab5")("yarn"), value: "yarn" },
+		// 				{ name: color.hex("#f2a701")("pnpm"), value: "pnpm" }
+		// 			]
+		// 		}
+		// 	],
+		// 	actions: [
+		// 		{
+		// 			type: "copyTemplate",
+		// 			data: {
+		// 				template: "{{ type }}",
+		// 				destination: "{{ dashCase name }}"
+		// 			}
+		// 		},
+		// 		{
+		// 			type: "run",
+		// 			data: {
+		// 				command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`
+		// 			}
+		// 		},
+		// 		// If its a shell platform we will chmod the start.sh file so it can be executed
+		// 		...conditionalTryCommand(
+		// 			isShellPlatform(),
+		// 			"chmod +x ./start.sh",
+		// 			"Failed to chmod start.sh. You will need to run `chmod +x ./start.sh` manually so the file is executable."
+		// 		),
+		// 		{
+		// 			type: "run",
+		// 			data: {
+		// 				command: "git init ."
+		// 			}
+		// 		},
+		// 		{
+		// 			type: "run",
+		// 			data: {
+		// 				command: "git add ."
+		// 			}
+		// 		},
+		// 		{
+		// 			type: "run",
+		// 			data: {
+		// 				command: 'git commit -m "Initial commit 💜"'
+		// 			}
+		// 		}
+		// 	]
+		// });
+		// const answers = await generator.runPrompts();
+		// const results = await generator.runActions(answers);
+		// if (results.failures.length > 0) {
+		// 	console.log("");
+		// 	console.log(
+		// 		color.red.bold("🚨 Failed to create project. See error above!")
+		// 	);
+		// 	console.log("");
+		// 	return;
+		// }
+		// console.log("");
+		// console.log(
+		// 	boxen(
+		// 		`🎉 Successfully created ${color.hex("#9469ff")(answers.name)}! Happy coding 💜`,
+		// 		{
+		// 			padding: 1,
+		// 			borderColor: "gray",
+		// 			borderStyle: "round"
+		// 		}
+		// 	)
+		// );
+		// console.log("");
+		// console.log(color.hex("#9469ff")("🚀 Quick Start"));
+		// console.log("");
+		// console.log(color.grey(`cd ${answers.name}`));
+		// console.log(color.grey(`${answers.packageManager} dev`));
+		// console.log("");
+		// console.log(color.hex("#9469ff")("📚 Learn More"));
+		// console.log("");
+		// console.log(color.grey("Check out the SerenityJS documentation at:"));
+		// console.log(color.grey("https://www.serenityjs.net/"));
+		// console.log("");
+		// console.log(color.grey("Join the SerenityJS Discord server at:"));
+		// console.log(color.grey("https://discord.gg/jUcC3q59zg"));
+		// console.log("");
 	});
 
 program.parse(process.argv);
