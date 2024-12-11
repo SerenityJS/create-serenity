@@ -97,27 +97,32 @@ program
 				{
 					type: "run",
 					name: "Installing Dependencies",
-					command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`
+					command: `{{packageManager}} add ${VersionDependentDependencies.map((pkg) => `${pkg}@{{version}}`).join(" ")} ${NonVersionDependentDependencies.map((pkg) => `${pkg}@latest`).join(" ")}`,
+					cwd: "{{name}}"
 				},
 				{
 					type: "run",
 					command: "chmod +x ./start.sh",
+					cwd: "{{name}}",
 					when: () => isShellPlatform(),
 					try: true
 				},
 				{
 					type: "run",
 					command: "git init .",
+					cwd: "{{name}}",
 					try: true
 				},
 				{
 					type: "run",
 					command: "git add .",
+					cwd: "{{name}}",
 					try: true
 				},
 				{
 					type: "run",
 					command: 'git commit -m "Initial commit 💜"',
+					cwd: "{{name}}",
 					try: true
 				}
 			]

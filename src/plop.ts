@@ -157,9 +157,14 @@ export async function run(
 	return new Promise((resolve, reject) => {
 		const command = api.renderString(config.command);
 		const cwd = path.resolve(
-			config.cwd ? api.renderString(config.cwd) : process.cwd()
+			config.cwd
+				? path.resolve(process.cwd(), api.renderString(config.cwd))
+				: process.cwd()
 		);
-		const operation = createConsoleOperation({ message: command, window: 10 });
+		const operation = createConsoleOperation({
+			message: config.name || command,
+			window: 10
+		});
 
 		const [cmd, ...args] = command.split(" ");
 		const child = spawn(cmd, args, { cwd, shell: true });

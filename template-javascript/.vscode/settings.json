@@ -1,12 +1,24 @@
 {
+  // Old Version
   "mc-color.enabled": true,
   "mc-color.markerType": "foreground",
   "mc-color.languages": ["*"],
-  "mc-color.newLineDelimiter": false,
-  "mc-color.delimiters": ["`", "\""],
+  "mc-color.newLineDelimiter": true,
+  "mc-color.delimiters": ["`", "\"", "'"],
   "mc-color.prefixes": ["§"],
   "mc-color.mode": "bedrock",
   "mc-color.replicateJavaBug": false,
+  // Pre Release Verison
+  "mc-color.enable": true,
+  "mc-color.version": "bedrock",
+  "mc-color.marker": "foreground",
+  "mc-color.fallback": true,
+  "mc-color.fallbackRegex": [
+    "(?<!\\\\)\"", // Unescaped double quotes
+    "(?<!\\\\)'", // Unescaped single quotes
+    "(?<!\\\\)`", // Unescaped backticks
+    "\\r?\\n" // Newline (Unix or Windows style)
+  ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "eslint.format.enable": true,

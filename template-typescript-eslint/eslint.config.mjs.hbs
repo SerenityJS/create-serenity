@@ -1,7 +1,12 @@
-import { config, configs } from "@ariesclark/eslint-config";
-import node from "@ariesclark/eslint-config/node";
+import { configure } from "@ariesclark/eslint-config";
 
-export default config({
-	extends: [...configs.recommended, ...node],
-	rules: {}
+export default configure({
+	stylistic: {
+		semi: true,
+		quotes: "double",
+		overrides: {
+			"style/indent": ["error", "space"]
+		}
+	},
+	typescript: true
 });
