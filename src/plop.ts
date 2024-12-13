@@ -70,7 +70,8 @@ export async function copy(config: PlopCopyAction, api: PlopActionAPI) {
 		api.renderString(config.destination)
 	);
 	const operation = createConsoleOperation({
-		message: `Copying files to ${path.relative(destinationCwd, destinationDir)}`
+		message: `Copying files to ${path.relative(destinationCwd, destinationDir)}`,
+		window: 8
 	});
 
 	if (!(await fs.exists(sourceDir))) {
@@ -94,7 +95,9 @@ export async function copy(config: PlopCopyAction, api: PlopActionAPI) {
 		}
 	}
 
-	operation.write(`📂 creating '${path.dirname(destinationDir)}'`);
+	operation.write(
+		`📂 creating '${path.relative(destinationCwd, destinationDir)}'`
+	);
 	await fs.ensureDir(destinationDir);
 
 	const processDirectory = async (source: string, destination: string) => {
@@ -163,7 +166,7 @@ export async function run(
 		);
 		const operation = createConsoleOperation({
 			message: config.name || command,
-			window: 10
+			window: 8
 		});
 
 		const [cmd, ...args] = command.split(" ");
