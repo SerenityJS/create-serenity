@@ -132,6 +132,7 @@ program
 						"A directory named '{{name}}' already exists! Would you like to overwrite?",
 					default: false,
 					when: (answers) => {
+						if (answers.name === ".") return false
 						const destinationDir = path.resolve(
 							process.cwd(),
 							String(answers.name)

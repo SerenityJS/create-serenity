@@ -80,7 +80,7 @@ export async function copy(config: PlopCopyAction, api: PlopActionAPI) {
 		throw error;
 	}
 
-	if (await fs.exists(destinationDir)) {
+	if (await fs.exists(destinationDir) && fs.readdirSync(destinationDir).length !== 0) {
 		if (api.answers.overwrite) {
 			operation.write(
 				`📂 deleting '${path.relative(destinationCwd, destinationDir)}'`
