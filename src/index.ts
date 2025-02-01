@@ -136,6 +136,7 @@ program
 							process.cwd(),
 							String(answers.name)
 						);
+						if (fs.existsSync(destinationDir) && fs.readdirSync(destinationDir).length === 0) return false
 						return fs.existsSync(destinationDir);
 					}
 				}
@@ -204,7 +205,7 @@ program
 		console.log(color.hex("#9469ff")("🚀 Quick Start"));
 		console.log("");
 		console.log(color.grey(`cd ${result.answers.name}`));
-		console.log(color.grey(`${result.answers.packageManager} dev`));
+		console.log(color.grey(`${result.answers.packageManager}${result.answers.packageManager === "npm" ? " run" : ""} dev`));
 		console.log("");
 		console.log(color.hex("#9469ff")("📚 Learn More"));
 		console.log("");
