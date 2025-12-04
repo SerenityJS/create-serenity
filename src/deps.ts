@@ -6,7 +6,7 @@ export const VersionDependentDependencies = [
   "@serenityjs/plugins",
   "@serenityjs/raknet",
   "@serenityjs/protocol",
-  "@serenityjs/binarystream",
+  "@serenityjs/binarystream"
 ];
 
 // These are deps we install latest of always.
